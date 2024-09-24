@@ -19,7 +19,7 @@ class Program
 
         // Crear la instancia de Resume
         Resume myResume = new Resume();
-        myResume._name = "Allison Rose";
+        myResume._name = "Samuel Cortez";
 
         // Agregar los trabajos a la lista de trabajos del currículum
         myResume._jobs.Add(job1);
