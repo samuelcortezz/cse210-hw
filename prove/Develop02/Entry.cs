@@ -5,6 +5,7 @@ using System;
 public class Entry
 {
 // Properties for the date of the entry, the prompt, and the user's response.    public string Date { get; set; }
+    public string Date { get; set; }
     public string Prompt { get; set; }
     public string Response { get; set; }
 
