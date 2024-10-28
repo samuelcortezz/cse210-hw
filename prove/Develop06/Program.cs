@@ -33,11 +33,11 @@ namespace EternalQuest
             if (!IsCompleted)
             {
                 IsCompleted = true;
-                Console.WriteLine($"¡Objetivo '{Name}' completado! Has ganado {Points} puntos.");
+                Console.WriteLine($"Goal '{Name}' completed! You earned {Points} points.");
             }
             else
             {
-                Console.WriteLine($"El objetivo '{Name}' ya fue completado.");
+                Console.WriteLine($"The goal '{Name}' has already been completed.");
             }
         }
 
@@ -49,7 +49,7 @@ namespace EternalQuest
         public override void DisplayProgress()
         {
             string status = IsCompleted ? "[X]" : "[ ]";
-            Console.WriteLine($"{status} {Name} - {Points} puntos");
+            Console.WriteLine($"{status} {Name} - {Points} points");
         }
     }
 
@@ -60,7 +60,7 @@ namespace EternalQuest
 
         public override void RecordProgress()
         {
-            Console.WriteLine($"Has registrado progreso en '{Name}' y ganado {Points} puntos.");
+            Console.WriteLine($"Progress recorded for '{Name}' - You earned {Points} points.");
         }
 
         public override string GetStringRepresentation()
@@ -70,7 +70,7 @@ namespace EternalQuest
 
         public override void DisplayProgress()
         {
-            Console.WriteLine($"[∞] {Name} - {Points} puntos por cada registro");
+            Console.WriteLine($"[∞] {Name} - {Points} points per entry");
         }
     }
 
@@ -94,17 +94,17 @@ namespace EternalQuest
             if (CurrentCompletion < TargetCompletion)
             {
                 CurrentCompletion++;
-                Console.WriteLine($"Progreso registrado en '{Name}' - {Points} puntos obtenidos.");
+                Console.WriteLine($"Progress recorded for '{Name}' - {Points} points earned.");
 
                 if (CurrentCompletion == TargetCompletion)
                 {
                     IsCompleted = true;
-                    Console.WriteLine($"¡Has completado el objetivo '{Name}' y ganado {BonusPoints} puntos de bonificación!");
+                    Console.WriteLine($"Congratulations! You completed the goal '{Name}' and earned a bonus of {BonusPoints} points!");
                 }
             }
             else
             {
-                Console.WriteLine($"El objetivo '{Name}' ya ha sido completado.");
+                Console.WriteLine($"The goal '{Name}' has already been completed.");
             }
         }
 
@@ -116,7 +116,7 @@ namespace EternalQuest
         public override void DisplayProgress()
         {
             string status = IsCompleted ? "[X]" : "[ ]";
-            Console.WriteLine($"{status} {Name} - {Points} puntos por cada registro. Completado {CurrentCompletion}/{TargetCompletion} veces.");
+            Console.WriteLine($"{status} {Name} - {Points} points per entry. Completed {CurrentCompletion}/{TargetCompletion} times.");
         }
     }
 
@@ -132,14 +132,14 @@ namespace EternalQuest
             while (running)
             {
                 Console.WriteLine("\n--- Eternal Quest ---");
-                Console.WriteLine("1. Crear objetivo");
-                Console.WriteLine("2. Registrar progreso");
-                Console.WriteLine("3. Mostrar objetivos");
-                Console.WriteLine("4. Guardar progreso");
-                Console.WriteLine("5. Cargar progreso");
-                Console.WriteLine("6. Mostrar puntaje total");
-                Console.WriteLine("7. Salir");
-                Console.Write("Selecciona una opción: ");
+                Console.WriteLine("1. Create a Goal");
+                Console.WriteLine("2. Record Progress");
+                Console.WriteLine("3. Display Goals");
+                Console.WriteLine("4. Save Progress");
+                Console.WriteLine("5. Load Progress");
+                Console.WriteLine("6. Show Total Score");
+                Console.WriteLine("7. Exit");
+                Console.Write("Choose an option: ");
                 
                 string option = Console.ReadLine();
                 switch (option)
@@ -160,13 +160,13 @@ namespace EternalQuest
                         LoadProgress();
                         break;
                     case "6":
-                        Console.WriteLine($"Puntaje total: {totalPoints}");
+                        Console.WriteLine($"Total Score: {totalPoints}");
                         break;
                     case "7":
                         running = false;
                         break;
                     default:
-                        Console.WriteLine("Opción no válida.");
+                        Console.WriteLine("Invalid option.");
                         break;
                 }
             }
@@ -174,16 +174,16 @@ namespace EternalQuest
 
         static void CreateGoal()
         {
-            Console.WriteLine("\nTipo de objetivo:");
+            Console.WriteLine("\nType of goal:");
             Console.WriteLine("1. Simple");
-            Console.WriteLine("2. Eterno");
-            Console.WriteLine("3. Lista de verificación");
-            Console.Write("Selecciona el tipo: ");
+            Console.WriteLine("2. Eternal");
+            Console.WriteLine("3. Checklist");
+            Console.Write("Select the type: ");
             
             string type = Console.ReadLine();
-            Console.Write("Nombre del objetivo: ");
+            Console.Write("Goal Name: ");
             string name = Console.ReadLine();
-            Console.Write("Puntos por completarlo: ");
+            Console.Write("Points for completion: ");
             int points = int.Parse(Console.ReadLine());
 
             switch (type)
@@ -195,27 +195,27 @@ namespace EternalQuest
                     goals.Add(new EternalGoal(name, points));
                     break;
                 case "3":
-                    Console.Write("Veces necesarias para completar: ");
+                    Console.Write("Times required to complete: ");
                     int target = int.Parse(Console.ReadLine());
-                    Console.Write("Puntos de bonificación al completar: ");
+                    Console.Write("Bonus points upon completion: ");
                     int bonus = int.Parse(Console.ReadLine());
                     goals.Add(new ChecklistGoal(name, points, target, bonus));
                     break;
                 default:
-                    Console.WriteLine("Tipo no válido.");
+                    Console.WriteLine("Invalid type.");
                     break;
             }
         }
 
         static void RecordGoalProgress()
         {
-            Console.WriteLine("\nSelecciona un objetivo:");
+            Console.WriteLine("\nSelect a goal:");
             for (int i = 0; i < goals.Count; i++)
             {
                 Console.Write($"{i + 1}. ");
                 goals[i].DisplayProgress();
             }
-            Console.Write("Opción: ");
+            Console.Write("Option: ");
             int index = int.Parse(Console.ReadLine()) - 1;
 
             if (index >= 0 && index < goals.Count)
@@ -228,13 +228,13 @@ namespace EternalQuest
             }
             else
             {
-                Console.WriteLine("Opción no válida.");
+                Console.WriteLine("Invalid option.");
             }
         }
 
         static void DisplayGoals()
         {
-            Console.WriteLine("\n--- Lista de objetivos ---");
+            Console.WriteLine("\n--- Goal List ---");
             foreach (Goal goal in goals)
             {
                 goal.DisplayProgress();
@@ -251,7 +251,7 @@ namespace EternalQuest
                     file.WriteLine(goal.GetStringRepresentation());
                 }
             }
-            Console.WriteLine("Progreso guardado.");
+            Console.WriteLine("Progress saved.");
         }
 
         static void LoadProgress()
@@ -281,11 +281,11 @@ namespace EternalQuest
                             break;
                     }
                 }
-                Console.WriteLine("Progreso cargado.");
+                Console.WriteLine("Progress loaded.");
             }
             else
             {
-                Console.WriteLine("No hay un archivo de progreso guardado.");
+                Console.WriteLine("No saved progress file found.");
             }
         }
     }

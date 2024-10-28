@@ -1,0 +1,3 @@
+200
+SimpleGoal:leer escrituras,10,True
+ChecklistGoal:compras,100,3,3,2
